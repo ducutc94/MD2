@@ -3,14 +3,14 @@ package Ngay64.BaiTapCuaNgu;
 public class Students {
     String ten;
     int tuoi;
-    int diemToan;
-    int diemLi;
-    int diemHoa;
+    double diemToan;
+    double diemLi;
+    double diemHoa;
 
     public Students() {
     }
 
-    public Students(String ten, int tuoi, int diemToan, int diemLi, int diemHoa) {
+    public Students(String ten, int tuoi, double diemToan, double diemLi, double diemHoa) {
         this.ten = ten;
         this.tuoi = tuoi;
         this.diemToan = diemToan;
@@ -34,27 +34,27 @@ public class Students {
         this.tuoi = tuoi;
     }
 
-    public int getDiemToan() {
+    public double getDiemToan() {
         return diemToan;
     }
 
-    public void setDiemToan(int diemToan) {
+    public void setDiemToan(double diemToan) {
         this.diemToan = diemToan;
     }
 
-    public int getDiemLi() {
+    public double getDiemLi() {
         return diemLi;
     }
 
-    public void setDiemLi(int diemLi) {
+    public void setDiemLi(double diemLi) {
         this.diemLi = diemLi;
     }
 
-    public int getDiemHoa() {
+    public double getDiemHoa() {
         return diemHoa;
     }
 
-    public void setDiemHoa(int diemHoa) {
+    public void setDiemHoa(double diemHoa) {
         this.diemHoa = diemHoa;
     }
 
