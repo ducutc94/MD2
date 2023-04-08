@@ -1,4 +1,4 @@
-package Ngay74.BaiTapQuan;
+package Ngay74.BaiTapMiniTest;
 
 import java.util.Arrays;
 import java.util.Scanner;

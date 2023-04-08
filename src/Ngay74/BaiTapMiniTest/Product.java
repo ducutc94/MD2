@@ -1,4 +1,4 @@
-package Ngay74.BaiTapQuan;
+package Ngay74.BaiTapMiniTest;
 
 public class Product {
     int id;
