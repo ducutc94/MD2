@@ -15,6 +15,8 @@ public class Main {
             product[i] = inProduct(i);
         }
         System.out.println("Nhap điều bạn muốn:");
+        System.out.println("1 Nếu bạn muốn sửa"+"\n"+
+                            "2 Nếu bạn muốn xóa+\n"+"3 Nếu bạn muốn tinh tổng+\n"+"4 Nếu bạn muốn tìm kiếm");
         int number=scanner.nextInt();
         switch (number){
             case 1:
@@ -30,7 +32,7 @@ public class Main {
                 Search(product);
                 break;
             default:
-                System.out.println("ời nhập lại:");
+                System.out.println("Mời nhập lại:");
         }
 
 
