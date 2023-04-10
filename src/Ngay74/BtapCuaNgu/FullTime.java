@@ -13,6 +13,11 @@ public class FullTime extends Employee{
         this.yearOfExp = yearOfExp;
     }
 
+    public FullTime() {
+
+    }
+
+
     public int getYearOfExp() {
         return yearOfExp;
     }
