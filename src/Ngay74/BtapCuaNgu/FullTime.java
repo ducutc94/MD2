@@ -25,4 +25,14 @@ public class FullTime extends Employee{
     public void setYearOfExp(int yearOfExp) {
         this.yearOfExp = yearOfExp;
     }
+
+    @Override
+    public String toString() {
+        return "FullTime{" +
+                ", id=" + id +
+                ", name='" + this.name + '\'' +
+                ", age=" + age +
+                " yearOfExp=" + yearOfExp +
+                '}';
+    }
 }

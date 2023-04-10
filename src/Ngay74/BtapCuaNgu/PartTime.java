@@ -23,4 +23,14 @@ public class PartTime extends Employee{
     public void setWordTime(int wordTime) {
         this.wordTime = wordTime;
     }
+
+    @Override
+    public String toString() {
+        return "PartTime{" +
+                ", id=" + id +
+                ", name='" + this.name + '\'' +
+                ", age=" + age +
+                " wordTime=" + wordTime +
+                '}';
+    }
 }
