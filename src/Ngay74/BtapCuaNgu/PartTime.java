@@ -28,7 +28,7 @@ public class PartTime extends Employee{
     public String toString() {
         return "PartTime{" +
                 ", id=" + id +
-                ", name='" + this.name + '\'' +
+                ", name='" +name +"'" +
                 ", age=" + age +
                 " wordTime=" + wordTime +
                 '}';

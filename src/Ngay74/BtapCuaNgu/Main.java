@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
-
     public static void main(String[] args) {
         FullTime nv1 = new FullTime(1, "NV1", 18, 10);
         FullTime nv2 = new FullTime(2, "NV2", 18, 3);
@@ -13,9 +12,8 @@ public class Main {
         PartTime pv2 = new PartTime(5, "PV2", 15, 2);
         Employee[] employees = {nv1, nv2, nv3, pv1, pv2};
 
-
         do {
-            System.out.println("MENU:");
+            System.out.println("s2-----------MENU----------2s");
             System.out.println("1.Hiển Thị danh sách nhân viên.");
             System.out.println("2.Thêm nhân viên mới.");
             System.out.println("3.Xóa.");
@@ -34,7 +32,8 @@ public class Main {
                     display(delete(scanner, employees));
                     break;
                 case 4:
-                    edit(scanner, employees);
+                   employees= edit(scanner, employees);
+                   display(employees);
                     break;
                 case 0:
                     System.exit(0);
@@ -42,22 +41,35 @@ public class Main {
         } while (true);
 
     }
-
     public static void display(Employee[] employees) {
-        System.out.println("Danh sách nhân viên  FullTime:");
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i] instanceof FullTime) {
-                System.out.println((FullTime) employees[i]);
+        int choice;
+        do {
+            System.out.println("1.Danh sách nhân viên  FullTime:");
+            System.out.println("2.Danh sách nhân viên  PartTime:");
+            System.out.println("0.Thoát:");
+            choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case 1:
+                    System.out.println("Danh sách nhân viên  FullTime:");
+                    for (int i = 0; i < employees.length; i++) {
+                        if (employees[i] instanceof FullTime) {
+                            System.out.println((FullTime) employees[i]);
+                        }
+                    }
+                    return;
+                case 2:
+                    System.out.println("Danh sách nhân viên  PartTime:");
+                    for (int i = 0; i < employees.length; i++) {
+                        if (employees[i] instanceof PartTime) {
+                            System.out.println((PartTime) employees[i]);
+                        }
+                    }
+                    return;
+                default:
+                    System.out.println("Không có lựa chọn trên.");
             }
-        }
-        System.out.println("Danh sách nhân viên  PartTime:");
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i] instanceof PartTime) {
-                System.out.println((PartTime) employees[i]);
-            }
-        }
+        }while (choice != 0) ;
     }
-
     public static Employee[] delete(Scanner scanner, Employee[] employees) {
         System.out.println("Nhập tên nhân viên muốn xóa.");
         String name = scanner.nextLine();
@@ -80,11 +92,10 @@ public class Main {
         }
 
     }
-
     public static Employee[] add(Employee[] employees) {
         System.out.println("1.Nếu bạn muốn thêm FullTime");
         System.out.println("2.Nếu bạn muốn thêm PartTime");
-        int number = scanner.nextInt();
+        int number = Integer.parseInt(scanner.nextLine());
         Employee[] employees1 = new Employee[employees.length + 1];
         FullTime newFulltime = new FullTime();
         PartTime newParttime = new PartTime();
@@ -93,7 +104,6 @@ public class Main {
             newFulltime.setId(scanner.nextInt());
             System.out.println("Nhập tên cho nhân viên");
             newFulltime.setName(scanner.nextLine());
-            scanner.nextLine();
             System.out.println("Nhập tuổi cho nhân viên");
             newFulltime.setAge(scanner.nextInt());
             System.out.println("Nhập year cho nhân viên");
@@ -108,7 +118,6 @@ public class Main {
             newParttime.setId(scanner.nextInt());
             System.out.println("Nhập tên cho nhân viên");
             newParttime.setName(scanner.nextLine());
-            scanner.nextLine();
             System.out.println("Nhập tuổi cho nhân viên");
             newParttime.setAge(scanner.nextInt());
             System.out.println("Nhập year cho nhân viên");
@@ -121,16 +130,14 @@ public class Main {
         scanner.nextLine();
         return employees1;
     }
-
-    public static void edit(Scanner scanner, Employee[] employees) {
+    public static Employee[] edit(Scanner scanner, Employee[] employees) {
         System.out.println("Nhập ID nhân viên bạn muốn sửa.");
-        int id = scanner.nextInt();
+        int id = Integer.parseInt(scanner.nextLine());
         for (int i = 0; i < employees.length; i++) {
             if (employees[i].getId() == id) {
                 if (employees[i] instanceof FullTime) {
                     System.out.println("Nhập tên mới:");
                     employees[i].setName(scanner.nextLine());
-                    scanner.nextLine();
                     System.out.println("Nhập tuổi mới:");
                     employees[i].setAge(scanner.nextInt());
                     System.out.println("Nhập năm kinh nghiệm:");
@@ -148,7 +155,8 @@ public class Main {
 
         }
         scanner.nextLine();
-        display(employees);
+        System.out.println("Bạn đã sửa thành công");
+        return employees;
 
 
     }

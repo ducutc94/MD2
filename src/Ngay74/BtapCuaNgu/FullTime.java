@@ -30,7 +30,7 @@ public class FullTime extends Employee{
     public String toString() {
         return "FullTime{" +
                 ", id=" + id +
-                ", name='" + this.name + '\'' +
+                ", name='" +name +"'"+
                 ", age=" + age +
                 " yearOfExp=" + yearOfExp +
                 '}';
