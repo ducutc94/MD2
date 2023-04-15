@@ -18,6 +18,9 @@ public class Students {
         this.diemHoa = diemHoa;
     }
 
+    public Students(String name, String age, double averagePoint) {
+    }
+
     public String getTen() {
         return ten;
     }

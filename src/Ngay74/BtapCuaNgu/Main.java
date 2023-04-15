@@ -4,12 +4,13 @@ import java.util.Scanner;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
-        FullTime nv1 = new FullTime(1, "NV1", 18, 10);
-        FullTime nv2 = new FullTime(2, "NV2", 18, 3);
-        FullTime nv3 = new FullTime(3, "NV3", 18, 5);
-        PartTime pv1 = new PartTime(4, "PV1", 15, 2);
-        PartTime pv2 = new PartTime(5, "PV2", 15, 2);
+        FullTime nv1 = new FullTime( "NV1", 18, 10);
+        FullTime nv2 = new FullTime( "NV2", 18, 3);
+        FullTime nv3 = new FullTime( "NV3", 18, 5);
+        PartTime pv1 = new PartTime( "PV1", 15, 2);
+        PartTime pv2 = new PartTime( "PV2", 15, 2);
         Employee[] employees = {nv1, nv2, nv3, pv1, pv2};
 
         do {
@@ -25,15 +26,16 @@ public class Main {
                     display(employees);
                     break;
                 case 2:
-                    display(add(employees));
+                    employees = add(employees);
+                    display(employees);
                     break;
                 case 3:
+                    employees = delete(scanner, employees);
                     display(employees);
-                    display(delete(scanner, employees));
                     break;
                 case 4:
-                   employees= edit(scanner, employees);
-                   display(employees);
+                    employees = edit(scanner, employees);
+                    display(employees);
                     break;
                 case 0:
                     System.exit(0);
@@ -41,6 +43,7 @@ public class Main {
         } while (true);
 
     }
+
     public static void display(Employee[] employees) {
         int choice;
         do {
@@ -68,8 +71,9 @@ public class Main {
                 default:
                     System.out.println("Không có lựa chọn trên.");
             }
-        }while (choice != 0) ;
+        } while (choice != 0);
     }
+
     public static Employee[] delete(Scanner scanner, Employee[] employees) {
         System.out.println("Nhập tên nhân viên muốn xóa.");
         String name = scanner.nextLine();
@@ -92,6 +96,7 @@ public class Main {
         }
 
     }
+
     public static Employee[] add(Employee[] employees) {
         System.out.println("1.Nếu bạn muốn thêm FullTime");
         System.out.println("2.Nếu bạn muốn thêm PartTime");
@@ -99,9 +104,14 @@ public class Main {
         Employee[] employees1 = new Employee[employees.length + 1];
         FullTime newFulltime = new FullTime();
         PartTime newParttime = new PartTime();
+        int idUp;
+        if(employees.length==0){
+            idUp=0;
+        }else {
+            idUp=employees[employees.length-1].getId();
+        }
         if (number == 1) {
-            System.out.println("Nhập ID cho nhân viên.");
-            newFulltime.setId(scanner.nextInt());
+            newFulltime.setId(idUp + 1);
             System.out.println("Nhập tên cho nhân viên");
             newFulltime.setName(scanner.nextLine());
             System.out.println("Nhập tuổi cho nhân viên");
@@ -114,8 +124,8 @@ public class Main {
             employees1[employees.length] = newFulltime;
         }
         if (number == 2) {
-            System.out.println("Nhập ID cho nhân viên.");
-            newParttime.setId(scanner.nextInt());
+
+            newParttime.setId(idUp + 1);
             System.out.println("Nhập tên cho nhân viên");
             newParttime.setName(scanner.nextLine());
             System.out.println("Nhập tuổi cho nhân viên");
@@ -130,6 +140,7 @@ public class Main {
         scanner.nextLine();
         return employees1;
     }
+
     public static Employee[] edit(Scanner scanner, Employee[] employees) {
         System.out.println("Nhập ID nhân viên bạn muốn sửa.");
         int id = Integer.parseInt(scanner.nextLine());

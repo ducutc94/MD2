@@ -4,12 +4,14 @@ public class Employee {
     int id;
     String name;
     int age;
-    public Employee(){
+    private static int idUp = 1;
 
+    public Employee() {
+        idUp++;
     }
 
-    public Employee(int id, String name, int age) {
-        this.id = id;
+    public Employee( String name, int age) {
+        this.id = idUp++;
         this.name = name;
         this.age = age;
     }
@@ -42,7 +44,7 @@ public class Employee {
     public String toString() {
         return "Employee{" +
                 "id=" + id +
-                ", name='" +name +"'"+
+                ", name='" + name + "'" +
                 ", age=" + age +
                 '}';
     }
