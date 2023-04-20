@@ -1,4 +1,4 @@
-package Ngay19_04.BaiMiniTest;
+package Ngay19_04.BaiMiniTest.Model;
 
 import java.util.Scanner;
 
@@ -9,7 +9,7 @@ public class Student {
     private String gender;
     private Double avgPoint;
     private Classroom classroom;
-    private  static int INDEX=0;
+    private static int INDEX = 0;
     Scanner scanner;
     private String lear;
 
@@ -22,12 +22,12 @@ public class Student {
     }
 
     public Student() {
-        scanner=new Scanner(System.in);
-        this.id=++INDEX;
+        scanner = new Scanner(System.in);
+        this.id = ++INDEX;
     }
 
-    public Student( String name, int age, String gender, Double avgPoint,Classroom classroom) {
-        scanner=new Scanner(System.in);
+    public Student(String name, int age, String gender, Double avgPoint, Classroom classroom) {
+        scanner = new Scanner(System.in);
         this.id = ++INDEX;
         this.name = name;
         this.age = age;

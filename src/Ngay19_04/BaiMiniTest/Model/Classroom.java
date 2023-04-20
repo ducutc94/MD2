@@ -1,4 +1,4 @@
-package Ngay19_04.BaiMiniTest;
+package Ngay19_04.BaiMiniTest.Model;
 
 public class Classroom {
     private int id;
@@ -8,10 +8,6 @@ public class Classroom {
     public Classroom( String name) {
         this.id = ++INDEX;
         this.name = name;
-    }
-
-    public Classroom() {
-
     }
 
     public int getId() {

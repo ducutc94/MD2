@@ -1,10 +1,8 @@
-package Ngay19_04.BaiMiniTest;
-
-import java.util.List;
+package Ngay19_04.BaiMiniTest.Model;
 
 public interface Manage<E> {
     void creat();
-    List<E> edit();
+    void edit();
     E delete();
     E search();
     void  displayAll();
