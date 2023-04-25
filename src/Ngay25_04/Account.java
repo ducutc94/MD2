@@ -2,9 +2,10 @@ package Ngay25_04;
 
 public class Account {
     private int id;
+    private static int INDEX=0;
     private final String username;
     private final String password;
-    private int phoneNumber;
+    private String phoneNumber;
     private String address;
     private String fullName;
 
@@ -14,8 +15,8 @@ public class Account {
 
     }
 
-    public Account(int id, String username, String password, String fullName, int phoneNumber, String address) {
-        this.id = id;
+    public Account( String username, String password, String fullName, String phoneNumber, String address) {
+        this.id = ++INDEX;
         this.username = username;
         this.password = password;
         this.phoneNumber = phoneNumber;

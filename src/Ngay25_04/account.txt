@@ -1,3 +1,2 @@
-1,codegym,ducpro,2313,hà nội,lê văn đưc
-2,ducpro,123456,54353,sài gòn,lê đưc
-3,fdsfs,312,31231,gfdg,gd
+1,codegym,ducpro,0999999999,Hà Nội,Lê văn Đức
+2,s2lovec,ducproa1,0888888888,Sài Gòn,Lê Văn A

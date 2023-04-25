@@ -17,19 +17,17 @@ public class AccountManage {
     }
     public   List<Account> registerAccount() {
         List<Account> accountList = new ArrayList<>();
-        System.out.println("Nhập id:");
-        int id = Integer.parseInt(scanner.nextLine());
         System.out.println("Nhập tên đăng nhập:");
         String username = scanner.nextLine();
         System.out.println("Nhập tên mật khẩu:");
         String password = scanner.nextLine();
         System.out.println("Nhập tên số điên thoại:");
-        int phone = Integer.parseInt(scanner.nextLine());
+        String   phone = scanner.nextLine();
         System.out.println("Nhập tên địa chỉ:");
         String address = scanner.nextLine();
         System.out.println("Nhập tên tên đầy đủ:");
         String fullName = scanner.nextLine();
-        accountList.add(new Account(id,username,password,fullName,phone,address));
+        accountList.add(new Account(username,password,fullName,phone,address));
         return accountList;
 
     }
@@ -43,7 +41,6 @@ public class AccountManage {
         for (Account account : accounts) {
             bufferedWriter.write(account + "\n");
         }
-
         bufferedWriter.close();
         fileWriter.close();
     }
