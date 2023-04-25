@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class AccountManage {
     List<Account> account;
-    private Scanner scanner;
+    private final Scanner scanner;
     static File file = new File("E:\\NNLT\\MD2\\MD2\\src\\Ngay25_04\\account.txt");
 
     public AccountManage(List<Account> accountList) {
