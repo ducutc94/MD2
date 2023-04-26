@@ -1,40 +1,71 @@
 package Ngay19_04.BaiMiniTest.service;
 
+import Ngay19_04.BaiMiniTest.IOFile1.IOFile;
 import Ngay19_04.BaiMiniTest.Model.Classroom;
 import Ngay19_04.BaiMiniTest.Model.Manage;
 import Ngay19_04.BaiMiniTest.Model.Student;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class StudentManage implements Manage<Student> {
-    static Scanner scanner = new Scanner(System.in);
-    List<Student> studentList = new ArrayList<>();
-    static String[] gender = new String[]{"Nam", "Nữ", "Other"};
-    ClassroomManage classroomManage = new ClassroomManage();
 
-    public StudentManage() {
-        studentList.add(new Student("Nam", 18, "Nam", 8.5, classroomManage.classrooms.get(0)));
-        studentList.add(new Student("Bắc", 19, "Nam", 7.8, classroomManage.classrooms.get(1)));
-        studentList.add(new Student("Trung", 20, "Nữ", 4.3, classroomManage.classrooms.get(0)));
+    static Scanner scanner = new Scanner(System.in);
+    static List<Student> studentList = new ArrayList<>();
+    static IOFile ioFile = new IOFile();
+
+    static {
+        try {
+            studentList = ioFile.readFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static String[] gender = new String[]{"Nam", "Nữ", "Other"};
+    ClassroomManage classroomManage =new ClassroomManage();
+
+
+    public StudentManage(ClassroomManage classroomManage) {
+
     }
 
     @Override
-    public void creat() {
+    public void creat() throws IOException {
         System.out.println("Nhập tên học sinh:");
         String name = scanner.nextLine();
         System.out.println("Nhập tuổi học sinh:");
-        int age = Integer.parseInt(scanner.nextLine());
+        int age=-1;
+        do {
+            try {
+                age = Integer.parseInt(scanner.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Lỗi:" + e.getMessage());
+                System.out.println("Mời nhập lại:");
+            }
+        } while (true);
         System.out.println("Chọn giới tính:");
         String string = gender(scanner, gender);
         System.out.println("Nhập điểm TB học sinh:");
         System.out.println("0<= Điểm TB <=10");
-        Double avgPoint = Double.parseDouble(scanner.nextLine());
+        double avg=-1;
+        do {
+            try {
+                avg = Double.parseDouble(scanner.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Lỗi:" + e.getMessage());
+                System.out.println("Mời nhập lại:");
+            }
+        } while (true);
         System.out.println("Nhập tên lớp");
-        Classroom classroom = setClassroomManage();
-        scanner.nextLine();
-        studentList.add(new Student(name, age, string, avgPoint, classroom));
+        Classroom classroom =new Classroom();
+        classroom = classroomManage.setClassrooms();
+        studentList.add(new Student(name, age, string, avg, classroom));
+        ioFile.writeFile(studentList);
     }
 
     public String gender(Scanner scanner, String[] gender) {
@@ -53,19 +84,9 @@ public class StudentManage implements Manage<Student> {
         return str;
     }
 
-    public Classroom setClassroomManage() {
-        classroomManage.displayClass();
-        int choice = scanner.nextInt();
-        for (Classroom c : classroomManage.classrooms) {
-            if (choice == c.getId()) {
-                return c;
-            }
-        }
-        return null;
-    }
 
     @Override
-    public void edit() {
+    public void edit() throws IOException {
         System.out.println("Nhập id cần sửa: ");
         int id = Integer.parseInt(scanner.nextLine());
         int editById = getStudentByID(id);
@@ -88,18 +109,23 @@ public class StudentManage implements Manage<Student> {
         }
         System.out.println("Nhập lớp mới: ");
         classroomManage.displayClass();
-        studentList.get(editById).setClassroom(setClassroomManage());
+        Classroom classroom;
+        classroom=classroomManage.setClassrooms();
+        studentList.get(editById).setClassroom(classroom);
+        ioFile.writeFile(studentList);
     }
 
     @Override
-    public Student delete() {
+    public Student delete() throws IOException {
         System.out.println("Nhập id cần xóa: ");
         int id = Integer.parseInt(scanner.nextLine());
         int deleteID = getStudentByID(id);
         if (deleteID == -1) {
             return null;
         } else {
-            return studentList.remove(deleteID);
+            Student student = studentList.remove(deleteID);
+            ioFile.writeFile(studentList);
+            return student;
         }
 
     }
@@ -141,14 +167,14 @@ public class StudentManage implements Manage<Student> {
         return -1;
     }
 
-    public void displayByClassroom() {
+    public void displayByClassroom() throws IOException {
         classroomManage.displayClass();
         System.out.println("Mời nhập lớp muốn hiển thị: ");
         int choice = Integer.parseInt(scanner.nextLine());
-        for (int i = 0; i < classroomManage.classrooms.size(); i++) {
-            if (choice == classroomManage.classrooms.get(i).getId()) {
+        for (int i = 0; i < ClassroomManage.classrooms.size(); i++) {
+            if (choice == ClassroomManage.classrooms.get(i).getId()) {
                 for (Student student : studentList) {
-                    if (student.getClassroom().equals(classroomManage.classrooms.get(i))) {
+                    if (student.getClassroom().equals(ClassroomManage.classrooms.get(i))) {
                         System.out.println(student);
                     }
                 }
@@ -241,19 +267,16 @@ public class StudentManage implements Manage<Student> {
         }
     }
 
-    public void deleteClassAndStudent() {
-        displayAll();
-        System.out.println("Nhập id lớp class cần xóa");
-        int id = Integer.parseInt(scanner.nextLine());
+    public void deleteClassAndStudent(Classroom classroom) throws IOException {
         boolean flag = true;
         for (int i = 0; i < studentList.size(); i++) {
-            if (studentList.get(i).getClassroom().getId() == id) {
+            if (studentList.get(i).getClassroom().getName().equals( classroom.getName())) {
                 studentList.remove(i);
                 flag = false;
             }
         }
         if (!flag) {
-            classroomManage.deleteById(id);
+            classroomManage.deleteById();
             System.out.println("Xóa thành công");
             displayAll();
         } else {
@@ -261,40 +284,5 @@ public class StudentManage implements Manage<Student> {
         }
 
 
-    }
-
-    public void deleteByIdClass() {
-        classroomManage.displayClass();
-        System.out.println("Nhập id class muốn xóa");
-        int id = Integer.parseInt(scanner.nextLine());
-        for (int i = 0; i < classroomManage.classrooms.size(); i++) {
-            if (id == classroomManage.classrooms.get(i).getId()) {
-                Classroom remove = classroomManage.classrooms.remove(i);
-                System.out.println(remove);
-            }
-        }
-
-
-    }
-
-    public void editClass() {
-        System.out.println("Nhập id class muốn sửa");
-        int id = Integer.parseInt(scanner.nextLine());
-        for (int i = 0; i < classroomManage.classrooms.size(); i++) {
-            if (id == classroomManage.classrooms.get(i).getId()) {
-                System.out.println("Nhâp tên lớp mới");
-                String name = scanner.nextLine();
-                classroomManage.classrooms.get(i).setName(name);
-                System.out.println("Sửa thành công");
-                System.out.println(classroomManage.classrooms.get(i));
-            }
-        }
-    }
-    public  void creatClass(){
-        System.out.println("Nhập tên lớp");
-        String name=scanner.nextLine();
-        Classroom classroom=new Classroom(name);
-        classroomManage.classrooms.add(classroom);
-        classroomManage.displayClass();
     }
 }

@@ -3,11 +3,14 @@ package Ngay19_04.BaiMiniTest.Model;
 public class Classroom {
     private int id;
     private String name;
-    private  static  int INDEX=0;
+    private static int INDEX = 0;
 
-    public Classroom( String name) {
+    public Classroom(String name) {
         this.id = ++INDEX;
         this.name = name;
+    }
+
+    public Classroom() {
     }
 
     public int getId() {
@@ -28,9 +31,9 @@ public class Classroom {
 
     @Override
     public String toString() {
-        return "Classroom{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return
+                id +
+                        "," + name
+                ;
     }
 }

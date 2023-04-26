@@ -1,15 +1,19 @@
 package Ngay19_04.BaiMiniTest.Controller;
 
+import Ngay19_04.BaiMiniTest.Model.Classroom;
 import Ngay19_04.BaiMiniTest.Model.Student;
+import Ngay19_04.BaiMiniTest.service.ClassroomManage;
 import Ngay19_04.BaiMiniTest.service.StudentManage;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MainTest {
     static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        StudentManage studentManage = new StudentManage();
+    public static void main(String[] args) throws IOException {
+        ClassroomManage classroomManage=new ClassroomManage();
+        StudentManage studentManage = new StudentManage(classroomManage);
         int choice;
         do {
             System.out.println("-----------------------");
@@ -82,15 +86,16 @@ public class MainTest {
                     studentManage.displayByGender(scanner);
                     break;
                 case 11:
-                    studentManage.deleteClassAndStudent();
+                   Classroom classroom= classroomManage.deleteById();
+                    studentManage.deleteClassAndStudent(classroom);
                     break;
                 case 12:
-                    studentManage.deleteByIdClass();
+                    classroomManage.deleteById();
                     break;
                 case 13:
-                    studentManage.editClass();
+                    classroomManage.edit();
                     break;
-                case 14:studentManage.creatClass();
+                case 14:classroomManage.creat();
                 break;
                 case 0:
                     System.exit(0);
