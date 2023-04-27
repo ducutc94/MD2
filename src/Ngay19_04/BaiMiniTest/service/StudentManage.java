@@ -25,11 +25,11 @@ public class StudentManage implements Manage<Student> {
     }
 
     static String[] gender = new String[]{"Nam", "Nữ", "Other"};
-    ClassroomManage classroomManage =new ClassroomManage();
+    ClassroomManage classroomManage;
 
 
     public StudentManage(ClassroomManage classroomManage) {
-
+        this.classroomManage = classroomManage;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class StudentManage implements Manage<Student> {
         System.out.println("Nhập tên học sinh:");
         String name = scanner.nextLine();
         System.out.println("Nhập tuổi học sinh:");
-        int age=-1;
+        int age = -1;
         do {
             try {
                 age = Integer.parseInt(scanner.nextLine());
@@ -51,7 +51,7 @@ public class StudentManage implements Manage<Student> {
         String string = gender(scanner, gender);
         System.out.println("Nhập điểm TB học sinh:");
         System.out.println("0<= Điểm TB <=10");
-        double avg=-1;
+        double avg = -1;
         do {
             try {
                 avg = Double.parseDouble(scanner.nextLine());
@@ -62,7 +62,7 @@ public class StudentManage implements Manage<Student> {
             }
         } while (true);
         System.out.println("Nhập tên lớp");
-        Classroom classroom =new Classroom();
+        Classroom classroom = new Classroom();
         classroom = classroomManage.setClassrooms();
         studentList.add(new Student(name, age, string, avg, classroom));
         ioFile.writeFile(studentList);
@@ -110,7 +110,7 @@ public class StudentManage implements Manage<Student> {
         System.out.println("Nhập lớp mới: ");
         classroomManage.displayClass();
         Classroom classroom;
-        classroom=classroomManage.setClassrooms();
+        classroom = classroomManage.setClassrooms();
         studentList.get(editById).setClassroom(classroom);
         ioFile.writeFile(studentList);
     }
@@ -268,21 +268,14 @@ public class StudentManage implements Manage<Student> {
     }
 
     public void deleteClassAndStudent(Classroom classroom) throws IOException {
-        boolean flag = true;
         for (int i = 0; i < studentList.size(); i++) {
-            if (studentList.get(i).getClassroom().getName().equals( classroom.getName())) {
+            System.out.println(studentList.get(i).getClassroom().getName());
+            System.out.println(classroom.getName());
+            if (studentList.get(i).getClassroom().getName().equals(classroom.getName())) {
+                displayStudent(studentList.get(i));
                 studentList.remove(i);
-                flag = false;
             }
         }
-        if (!flag) {
-            classroomManage.deleteById();
-            System.out.println("Xóa thành công");
-            displayAll();
-        } else {
-            System.out.println("Không có id lớp class cần xóa");
-        }
-
-
+        ioFile.writeFile(studentList);
     }
 }

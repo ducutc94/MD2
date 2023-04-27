@@ -17,10 +17,10 @@ public class MainTest {
         int choice;
         do {
             System.out.println("-----------------------");
-            System.out.println("----------MENU---------");
-            System.out.println("1.Tạo mới học sinh.");
-            System.out.println("2.Sửa thông tin học sinh theo id.");
-            System.out.println("3.Xóa 1 học sinh theo id.");
+            System.out.println("----------MENU--------------------------------");
+            System.out.println("'1.Tạo mới học sinh.                          '");
+            System.out.println("'2.Sửa thông tin học sinh theo id.            '");
+            System.out.println("'3.Xóa 1 học sinh theo id.                    '");
             System.out.println("4.Hiện thị 1 học sinh theo id.");
             System.out.println("5.Hiển thị tất cả học sinh.");
             System.out.println("6.Hiển Thị học sinh theo lớp.");
